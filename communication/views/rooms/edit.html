@@ -1,0 +1,11 @@
+{% extends "../layouts/application.html" %}
+{% block primary %}
+	<form action="{% url RoomHandler %}" method="post">
+		<ul>
+			{{ form.as_ul }}
+			<li class="submit">
+				<input type="submit" name="commit" value="Update Room" />
+			</li>
+		</ul>
+	</form>
+{% endblock primary %}

@@ -1,0 +1,27 @@
+{% extends "../layouts/application.html" %}
+{% block primary %}
+	{% if authorizations %}
+		<h1>Rooms</h1>
+		<ul>
+			{% for auth in authorizations %}
+				<li>
+					<a href="{% url RoomHandler auth.room.key.id %}">{{ auth.room.name }}</a>
+					<span class="actions">
+						<a href="/rooms/{{ auth.room.key.id }}/edit">Edit</a>
+					</span>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	
+	<form action="{% url RoomCollectionHandler %}" method="post">
+		<fieldset class="horizontal">
+			<ul>
+				{{ form.as_ul }}
+				<li class="submit">
+					<input type="submit" name="commit" value="Create New Room" />
+				</li>
+			</ul>
+		</fieldset>
+	</form>
+{% endblock primary %}

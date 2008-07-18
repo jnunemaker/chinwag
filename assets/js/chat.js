@@ -15,7 +15,6 @@
     }, 'json');
   }
   
-  // TODO: check if message exists before adding it
   function addMessageToList(message) {
     if ($('#message_' + message.id).length == 0) {
       $.log('adding message to list');
@@ -24,7 +23,6 @@
         body: message.body,
         user: message.user.nickname
       });
-      // TODO: only scroll to bottom if person is at the bottom
       field.scrollTo();
     } else {
       $.log('message already existed');
@@ -35,8 +33,10 @@
     $.map(json, function(m) { addMessageToList(m); });
     num = json.length;
     if (num > 0) {
-      since   = json[num-1].created.epoch;
-      $.log('setting since to ' + since);
+      var m = json[num-1];
+      since   = m.created.epoch;
+      last_id = m.id
+      $.log('setting since to ' + since + ' and last id to ' + last_id);
     }
   }
   
@@ -68,5 +68,7 @@
     if (times == 10) { timer.stop(); }
   });
   
-  $(window).bind('resize', function() { field.scrollTo(); })
+  $(window).bind('resize', function() { 
+    field.scrollTo();
+  });  
 })(jQuery);

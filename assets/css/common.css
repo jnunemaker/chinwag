@@ -55,6 +55,8 @@
 	div.message div.message_user            {float:left; display:inline; width:100px; overflow:hidden; margin:0 20px 0 0;}
 	div.message div.message_body            {float:left; display:inline; width:440px;}
 	
+	form#add_user ul li                     {margin:0 0 10px;}
+	
 /**                     						
  * LAYOUT               						
  */	                    						
@@ -65,7 +67,7 @@
 	div#content															{float:left; display:inline; width:960px;}
 	div#primary															{float:left; display:inline; width:560px; margin:0 0 20px; padding:20px; outline:1px solid #ccc; background:#fff;}
 	div#primary #message                    {width:550px; height:26px; padding:5px; line-height:13px;}
-	div#secondary                           {float:left; display:inline;}
+	div#secondary                           {float:left; display:inline; position:fixed; top:60px; margin:0 20px 0;}
 	div#footer															{clear:both;}
 }
 

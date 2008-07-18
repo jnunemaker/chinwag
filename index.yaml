@@ -16,13 +16,13 @@ indexes:
   - name: room
   - name: ID
 
-# Used 998 times in query history.
+# Used 1310 times in query history.
 - kind: Message
   properties:
   - name: room
   - name: created
 
-# Used 183 times in query history.
+# Used 209 times in query history.
 - kind: Message
   properties:
   - name: room

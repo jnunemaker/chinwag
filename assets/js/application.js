@@ -21,6 +21,18 @@ jQuery.fn.scrollTo = function() {
   return this;
 }
 
+jQuery.fn.disable = function() {
+  return this.each(function() {
+    $(this).attr("disabled", true);
+  });
+}
+
+jQuery.fn.enable = function() {
+  return this.each(function() {
+    $(this).removeAttr("disabled");
+  });
+}
+
 /* Client-side access to querystring name=value pairs
 	Version 1.3
 	28 May 2008

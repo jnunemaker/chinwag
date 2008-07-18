@@ -44,7 +44,7 @@ class RoomHandler(handlers.ApplicationHandler):
   @find_room
   def get(self, room):
     """Shows an individual room."""
-    self.render_template('rooms/show.html', {'room':room, 'messages':room.messages})
+    self.render_template('rooms/show.html', {'room':room, 'messages':room.messages, 'authorizations':room.authorizations})
   
   @handlers.login_required
   @find_room

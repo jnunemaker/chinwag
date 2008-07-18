@@ -21,14 +21,24 @@
 	</form>
 	
 	<script type="text/javascript" charset="utf-8">
-		var since = Math.round(new Date().getTime()/1000.0);
-		$.log(since);
-		
-		if (typeof(last_id) == 'undefined') {
-			var last_id = null;
-		}
-		
+		var since   = Math.round(new Date().getTime()/1000.0);
 		var room_id = {{ room.key.id }};
 	</script>
 	<script type="text/javascript" src="/assets/js/chat.js"></script>
 {% endblock primary %}
+
+{% block secondary %}
+	<form action="{% url AuthorizationCollectionHandler %}" id="add_user">
+		<ul>
+			<li>
+				<input type="text" name="email" id="email" />
+			</li>
+			<li class="submit">
+				<input type="submit" value="Invite GMail User" id="invite_button" />
+			</li>
+		</ul>
+		<p id="user_add_message"></p>
+	</form>
+	
+	<script type="text/javascript" src="/assets/js/user.js"></script>
+{% endblock secondary %}

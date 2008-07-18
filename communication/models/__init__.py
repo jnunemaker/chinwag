@@ -16,14 +16,6 @@ class Room(db.Model):
       return True
     else:
       return False
-      
-  def to_dict(self):
-    return {
-      'id'      : self.key().id(),
-      'name'    : self.name,
-      'user'    : self.user.nickname(),
-      'created' : self.created.strftime('%Y-%m-%d %H:%M:%S')
-    }
 
 class Message(db.Model):
   """Type of message. Should be one of enter, exit, message, timestamp."""
@@ -33,23 +25,6 @@ class Message(db.Model):
   room    = db.ReferenceProperty(Room, collection_name='messages')
   user    = db.UserProperty()
   
-  def to_dict(self):
-    return {
-      'id'      : self.key().id(),
-      'breed'   : self.breed,
-      'body'    : self.body,
-      'created' : self.created.strftime('%Y-%m-%d %H:%M:%S'),
-      'room'    : self.room.name,
-      'user'    : self.user.nickname()
-    }
-
 class Authorization(db.Model):
   room    = db.ReferenceProperty(Room, collection_name='authorizations', required=True)
   user    = db.UserProperty()
-  
-  def to_dict(self):
-    return {
-      'id'    : self.key().id(),
-      'user'  : self.user.nickname(),
-      'room'  : self.room.name
-    }

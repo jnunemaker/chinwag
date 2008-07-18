@@ -6,7 +6,7 @@ from functools import update_wrapper
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from django.utils import simplejson
+import json
 
 _DEBUG = True
 
@@ -32,11 +32,11 @@ class ApplicationHandler(webapp.RequestHandler):
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), '..', 'views', template_path)
     self.response.out.write(template.render(path, values, debug=_DEBUG))
-    
+  
   def render_json(self, obj):
     """Renders an object in json format with proper headers."""
     self.response.content_type = "application/json"
-    simplejson.dump(obj, self.response.out)
+    self.response.out.write(json.encode(obj))
     
 class HomeHandler(ApplicationHandler):
   """Handles the home page."""

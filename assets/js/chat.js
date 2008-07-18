@@ -19,7 +19,11 @@
   function addMessageToList(message) {
     if ($('#message_' + message.id).length == 0) {
       $.log('adding message to list');
-      messages.append(text_msg_tpl, message);
+      messages.append(text_msg_tpl, {
+        id: message.id,
+        body: message.body,
+        user: message.user.nickname
+      });
       // TODO: only scroll to bottom if person is at the bottom
       field.scrollTo();
     } else {
@@ -31,8 +35,7 @@
     $.map(json, function(m) { addMessageToList(m); });
     num = json.length;
     if (num > 0) {
-      var m   = json[num-1];
-      since   = m.created;
+      since   = json[num-1].created.epoch;
       $.log('setting since to ' + since);
     }
   }

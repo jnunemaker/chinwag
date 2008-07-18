@@ -10,12 +10,6 @@
 					{{ message.body }}
 				</div>
 			</div>
-			{% if forloop.last %}
-				<script type="text/javascript">
-					var since = "{{ message.created|date:"Y-m-d"}} {{ message.created|time:"H:i:s" }}";
-					var last_id = {{ message.key.id }}
-				</script>
-			{% endif %}
 		{% endfor %}
 	</div>
 	<form id="chat_form">
@@ -27,10 +21,8 @@
 	</form>
 	
 	<script type="text/javascript" charset="utf-8">
-		if (typeof(since) == 'undefined') {
-			now = new Date();
-			var since = "{% now "Y-m-d H:i:s" %}";
-		}
+		var since = Math.round(new Date().getTime()/1000.0);
+		$.log(since);
 		
 		if (typeof(last_id) == 'undefined') {
 			var last_id = null;

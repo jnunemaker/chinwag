@@ -23,10 +23,9 @@ class MessageCollectionHandler(handlers.ApplicationHandler):
   @find_room_and_authorize
   def get(self, room):
     """Returns the latest messages for a given room in json."""
-    since = datetime.strptime(self.request.get('since'), "%Y-%m-%d %H:%M:%S")
+    since = datetime.fromtimestamp(int(self.request.get('since')))
     messages = models.Message.gql("WHERE room = :room AND created > :since", room=room, since=since)
-    ret_val = [m.to_dict() for m in messages]
-    self.render_json(ret_val)
+    self.render_json(messages)
 
   @handlers.login_required
   @find_room_and_authorize
@@ -38,6 +37,6 @@ class MessageCollectionHandler(handlers.ApplicationHandler):
       message.room = room
       message.user = users.get_current_user()
       message.put()
-      self.render_json(message.to_dict())
+      self.render_json(message)
     else:
       self.response.out.write('invalid')

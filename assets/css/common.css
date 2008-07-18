@@ -1,0 +1,90 @@
+@media screen, projection {
+	/*
+	Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+	Code licensed under the BSD License:
+	http://developer.yahoo.net/yui/license.txt
+	version: 2.5.1
+	*/
+	body{font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}table {font-size:inherit;font:100%;}pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
+	html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+	h1,h2,h3,h4,h5,h6,strong{font-weight:bold;}abbr,acronym{border-bottom:1px dotted #000;cursor:help;}em{font-style:italic;}ol li{list-style:decimal outside;}ul li{list-style:disc outside;}th{font-weight:bold;}caption{margin-bottom:.5em;text-align:center;}
+	
+/**
+ * REDECLARATIONS
+ */
+	html																		{background:#e7e7e7; height:100%; margin-bottom:1px;}
+	body																		{background:#e7e7e7; color:#333;}
+	p 																			{margin:0 0 30px;}
+	ul, ol																	{margin:0 0 30px 25px;}
+	dl dd																		{margin:0 0 0 15px;}
+	h1,h2,h3,h4															{font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;}
+	h1																			{font-size:197%; margin:0 0 20px;}
+	h2 																			{font-size:161.6%; margin:30px 0 20px; padding:0 0 10px; border-bottom:1px solid #ccc; color:#036;}
+	h3 																			{font-size:131%; margin:15px 0 10px;}
+	h4																			{font-size:108%; margin:10px 0 5px;}
+	a:link, a:visited												{color:#03c;}
+	a:hover																	{text-decoration:none;}
+	pre																			{font-size:93%;}
+	                      									
+/**                     									
+ * CHUNKS               									
+ */	                    									
+	a.delete																{color:#c00;}
+	
+	/* forms */                       			
+	form ul																	{margin:0; padding:0;}
+	form ul li															{margin:0 0 20px; list-style-type:none;}
+	form ul li label												{display:block; margin:0 0 5px;}
+	form ul li.inline label									{display:inline;}
+	form ul li input												{font-size:114%; padding:3px;}
+	form ul li.submit												{padding:10px 0 0; border-top:1px dotted #ccc;}
+	form textarea														{width:100%;}
+	fieldset																{margin:0 -20px 30px; padding:20px 20px 0;}
+	fieldset.horizontal ul li								{float:left; display:inline; margin:0 20px 20px 0;}
+	fieldset.horizontal ul li label         {display:inline;}
+	fieldset.horizontal ul li small					{display:block; margin:5px 0 0;}
+	fieldset.horizontal ul li.submit        {padding:4px 0 0; border:none;}
+	fieldset legend													{margin:0 -10px; padding:0 10px; font-weight:bold; text-transform:uppercase;}
+		
+	div.pagination													{margin:0 0 20px;}
+	div.pagination span.current							{padding:2px 8px;}
+	div.pagination a												{background:#E8ECF1; padding:2px 8px; text-decoration:none; color:#036;}
+	div.pagination a:hover									{background:#D1DAE3;}
+	
+	div.message                             {float:left; display:inline; width:100%; margin:0; padding:20px 0; border-bottom:1px solid #ddd;}
+	div.message div.message_user            {float:left; display:inline; width:100px; overflow:hidden; margin:0 20px 0 0;}
+	div.message div.message_body            {float:left; display:inline; width:440px;}
+	
+/**                     						
+ * LAYOUT               						
+ */	                    						
+	div#wrapper															{width:960px; margin:0 auto;}
+	div#header 															{padding:20px 0;}
+  div#header ul                           {margin:0; padding:0;}
+  div#header ul li                        {list-style-type:none; display:inline; margin:0 5px 0 0;}
+	div#content															{float:left; display:inline; width:960px;}
+	div#primary															{float:left; display:inline; width:560px; margin:0 0 20px; padding:20px; outline:1px solid #ccc; background:#fff;}
+	div#primary #message                    {width:550px; height:26px; padding:5px; line-height:13px;}
+	div#secondary                           {float:left; display:inline;}
+	div#footer															{clear:both;}
+}
+
+/*
+10 	77
+11 	85
+12 	93
+13 	100
+14 	108
+15 	116
+16 	123.1
+17 	131
+18 	138.5
+19 	146.5
+20 	153.9
+21 	161.6
+22 	167
+23 	174
+24 	182
+25 	189
+26 	197
+*/

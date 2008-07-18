@@ -5,23 +5,23 @@
 		<ul>
 			{% for auth in authorizations %}
 				<li>
-					<a href="{% url RoomHandler auth.room.key.id %}">{{ auth.room.name }}</a>
 					<span class="actions">
-						<a href="/rooms/{{ auth.room.key.id }}/edit">Edit</a>
+						<a href="{% url EditRoomHandler auth.room.key.id %}">Edit</a>
 					</span>
+					<a href="{% url RoomHandler auth.room.key.id %}">{{ auth.room.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>
+	{% else %}
+		<p>You don't have access to any rooms. Feel free to create one below.</p>
 	{% endif %}
 	
 	<form action="{% url RoomCollectionHandler %}" method="post">
-		<fieldset class="horizontal">
-			<ul>
-				{{ form.as_ul }}
-				<li class="submit">
-					<input type="submit" name="commit" value="Create New Room" />
-				</li>
-			</ul>
-		</fieldset>
+		<ul>
+			{{ form.as_ul }}
+			<li class="submit">
+				<input type="submit" name="commit" value="Create New Room" />
+			</li>
+		</ul>
 	</form>
 {% endblock primary %}

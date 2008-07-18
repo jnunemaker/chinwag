@@ -16,38 +16,35 @@ def find_room(f):
       self.error(404)
   return update_wrapper(_f, f)
 
-class RoomCollectionHandler(webapp.RequestHandler):
+class RoomCollectionHandler(handlers.ApplicationHandler):
   @handlers.login_required
   def get(self):
     """Lists all rooms the user has access to."""
     authorizations = models.Authorization.all().filter("user =", users.get_current_user())
     form = forms.RoomForm(auto_id='room_%s')
-    self.response.out.write(
-      template.render('communication/views/rooms/index.html', {'authorizations':authorizations, 'form':form}))
+    self.render_template('rooms/index.html', {'authorizations':authorizations, 'form':form})
   
   @handlers.login_required
   def post(self):
     """Create new room."""
-    authorizations = models.Authorization.all().filter("user =", users.get_current_user())
     form = forms.RoomForm(data=self.request.POST)
     if form.is_valid():
       room = form.save(commit=False)
-      room.owner = users.get_current_user()
+      room.user = users.get_current_user()
       room.put()
       authorization = models.Authorization(room=room, user=users.get_current_user())
       authorization.put()
       self.redirect(RoomCollectionHandler.get_url())
     else:
-      self.response.out.write(
-        template.render('communication/views/rooms/index.html', {'authorizations':authorizations, 'form':form}))
+      authorizations = models.Authorization.all().filter("user =", users.get_current_user())
+      self.render_template('rooms/index.html', {'authorizations':authorizations, 'form':form})
 
-class RoomHandler(webapp.RequestHandler):
+class RoomHandler(handlers.ApplicationHandler):
   @handlers.login_required
   @find_room
   def get(self, room):
     """Shows an individual room."""
-    self.response.out.write(
-      template.render('communication/views/rooms/show.html', {'room':room}))
+    self.render_template('rooms/show.html', {'room':room, 'messages':room.messages})
   
   @handlers.login_required
   @find_room
@@ -58,15 +55,13 @@ class RoomHandler(webapp.RequestHandler):
       room = form.save()
       self.redirect(RoomCollectionHandler.get_url())
     else:
-      self.response.out.write(
-        template.render('communication/views/room/edit.html', {'form':form, 'room':room}))
+      self.render_template('rooms/edit.html', {'form':form, 'room':room})
 
-class EditRoomHandler(webapp.RequestHandler):
+class EditRoomHandler(handlers.ApplicationHandler):
   @handlers.login_required
   @find_room
   def get(self, room):
     """Edit form for an individual room."""
     form = forms.RoomForm(instance=room)
-    self.response.out.write(
-      template.render('communication/views/rooms/edit.html', {'room':room, 'form':form}))
+    self.render_template('rooms/edit.html', {'room':room, 'form':form})
 

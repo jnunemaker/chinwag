@@ -17,15 +17,16 @@
 
 import wsgiref.handlers
 from communication import handlers
-from communication.handlers import rooms
+from communication.handlers import messages, rooms
 from google.appengine.ext import webapp
 
 def main():
   application = webapp.WSGIApplication([
       ('/', handlers.HomeHandler),
-      ('/rooms', rooms.RoomCollectionHandler),
-      ('/rooms/(\d+)', rooms.RoomHandler),
-      ('/rooms/(\d+)/edit', rooms.EditRoomHandler)
+      ('/rooms/?', rooms.RoomCollectionHandler),
+      ('/rooms/(\d+)/?', rooms.RoomHandler),
+      ('/rooms/(\d+)/edit/?', rooms.EditRoomHandler),
+      ('/rooms/(\d+)/messages/?', messages.MessageCollectionHandler),
     ], 
     debug=True)
   wsgiref.handlers.CGIHandler().run(handlers.MockHTTPMethodMiddleware(application))

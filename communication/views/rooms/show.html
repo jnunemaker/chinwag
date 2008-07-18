@@ -1,4 +1,42 @@
 {% extends "../layouts/application.html" %}
 {% block primary %}
-	<h1>{{ room.name }} ({{ room.owner.name }})</h1>
+	<div id="messages">
+		{% for message in messages %}
+			<div id="message_{{ message.key.id }}" class="message">
+				<div class="message_user">
+					{{ message.user.nickname }}
+				</div>
+				<div class="message_body">
+					{{ message.body }}
+				</div>
+			</div>
+			{% if forloop.last %}
+				<script type="text/javascript">
+					var since = "{{ message.created|date:"Y-m-d"}} {{ message.created|time:"H:i:s" }}";
+					var last_id = {{ message.key.id }}
+				</script>
+			{% endif %}
+		{% endfor %}
+	</div>
+	<form id="chat_form">
+		<ul>
+			<li>
+				<textarea id="message"></textarea>
+			</li>
+		</ul>
+	</form>
+	
+	<script type="text/javascript" charset="utf-8">
+		if (typeof(since) == 'undefined') {
+			now = new Date();
+			var since = "{% now "Y-m-d H:i:s" %}";
+		}
+		
+		if (typeof(last_id) == 'undefined') {
+			var last_id = null;
+		}
+		
+		var room_id = {{ room.key.id }};
+	</script>
+	<script type="text/javascript" src="/assets/js/chat.js"></script>
 {% endblock primary %}

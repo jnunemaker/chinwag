@@ -6,4 +6,9 @@ from communication import models
 class RoomForm(djangoforms.ModelForm):
   class Meta:
     model = models.Room
-    exclude = ['owner']
+    exclude = ['user']
+
+class MessageForm(djangoforms.ModelForm):
+  class Meta:
+    model = models.Message
+    exclude = ['created', 'room', 'user']

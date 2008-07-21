@@ -16,7 +16,7 @@ indexes:
   - name: room
   - name: ID
 
-# Used 1310 times in query history.
+# Used 1316 times in query history.
 - kind: Message
   properties:
   - name: room

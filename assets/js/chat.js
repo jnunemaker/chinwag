@@ -3,18 +3,16 @@
       message_url = '/rooms/' + room_id + '/messages';
   
   function createMessage(body, o) {
-    var params = {breed:'text', body:body}
+    var params = {breed:'text', body:body, evil:evil}
     $.extend(params, o || {})
-    $.post(message_url, params, function(message) {
-      addMessageToList(message);
+    $.post(message_url, params, function(messages) {
+      addMessagesToList(messages);
       field.val('').focus().scrollTo();
     }, 'json');
   }
   
   function addMessageToList(message) {
-    if ($('#message_' + message.evil).length == 0) {
-      l('adding message to list');
-      
+    if ($('#message_' + message.evil).length == 0) {      
       messages.append('<div id="message_' + message.evil +'" class="message">' + 
         '<div class="message_user">' + message.user.nickname + '</div>' +
         '<div class="message_body"></div>' +

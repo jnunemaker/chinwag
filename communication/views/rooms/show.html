@@ -7,7 +7,7 @@
 		{% for message in messages %}
 			<div id="message_{{ message.evil }}" class="message">
 				<div class="message_user">
-					{{ message.user.nickname }}
+					{{ message.user.nickname|escape }}
 				</div>
 				<div class="message_body">
 					{{ message.body|escape }}
@@ -29,7 +29,6 @@
 	</form>
 	
 	<script type="text/javascript" charset="utf-8">
-		// var since   = Math.round(new Date().getTime()/1000.0);
 		var room_id = {{ room.key.id }};
 	</script>
 	<script type="text/javascript" src="/assets/js/chat.js"></script>

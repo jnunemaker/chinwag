@@ -27,6 +27,7 @@ class MessageCollectionHandler(handlers.ApplicationHandler):
       message.user = users.get_current_user()
       message.increment_evil()
       message.put()
-      self.render_json(message)
+      messages = models.Message.gql("WHERE room = :room AND evil > :evil", room=room, evil=int(self.request.get('evil')))
+      self.render_json(messages)
     else:
       self.response.out.write('invalid')

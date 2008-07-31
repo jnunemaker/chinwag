@@ -24,6 +24,18 @@ class Message(db.Model):
   created = db.DateTimeProperty(auto_now_add=True)
   room    = db.ReferenceProperty(Room, collection_name='messages')
   user    = db.UserProperty()
+  evil    = db.IntegerProperty()
+  
+  def increment_evil(self):
+    """docstring for fname"""
+    last = Message.gql("WHERE room = :room ORDER BY evil DESC", room=self.room).fetch(1)
+    if len(last) > 0:
+      self.evil = last[0].evil + 1
+    else:
+      self.evil = 1
+  
+  
+    
   
 class Authorization(db.Model):
   room    = db.ReferenceProperty(Room, collection_name='authorizations', required=True)

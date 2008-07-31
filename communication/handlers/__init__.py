@@ -35,9 +35,9 @@ class ApplicationHandler(webapp.RequestHandler):
   def render_template(self, template_path, template_values={}):
     values = {
       'request'           : self.request,
-      'current_user'      : users.GetCurrentUser(),
-      'login_url'         : users.CreateLoginURL(self.request.uri),
-      'logout_url'        : users.CreateLogoutURL(self.request.uri),
+      'current_user'      : users.get_current_user(),
+      'login_url'         : users.create_login_url(self.request.uri),
+      'logout_url'        : users.create_logout_url(self.request.uri),
       'application_name'  : 'Communication',
     }
     values.update(template_values)

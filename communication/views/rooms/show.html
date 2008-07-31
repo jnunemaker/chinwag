@@ -1,15 +1,23 @@
 {% extends "../layouts/application.html" %}
 {% block primary %}
+	<script type="text/javascript" charset="utf-8">
+		var evil = 0;
+	</script>
 	<div id="messages">
 		{% for message in messages %}
-			<div id="message_{{ message.key.id }}" class="message">
+			<div id="message_{{ message.evil }}" class="message">
 				<div class="message_user">
 					{{ message.user.nickname }}
 				</div>
 				<div class="message_body">
-					{{ message.body }}
+					{{ message.body|escape }}
 				</div>
 			</div>
+			{% if forloop.last %}
+				<script type="text/javascript" charset="utf-8">
+					evil = {{ message.evil }};
+				</script>
+			{% endif %}
 		{% endfor %}
 	</div>
 	<form id="chat_form">
@@ -21,7 +29,7 @@
 	</form>
 	
 	<script type="text/javascript" charset="utf-8">
-		var since   = Math.round(new Date().getTime()/1000.0);
+		// var since   = Math.round(new Date().getTime()/1000.0);
 		var room_id = {{ room.key.id }};
 	</script>
 	<script type="text/javascript" src="/assets/js/chat.js"></script>

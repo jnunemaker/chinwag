@@ -13,19 +13,19 @@ class MessageCollectionHandler(handlers.ApplicationHandler):
   @handlers.find_room_and_authorize
   def get(self, room):
     """Returns the latest messages for a given room in json."""
-    since = datetime.fromtimestamp(int(self.request.get('since')))
-    messages = models.Message.gql("WHERE room = :room AND created > :since", room=room, since=since)
+    messages = models.Message.gql("WHERE room = :room AND evil > :evil", room=room, evil=int(self.request.get('evil')))
     self.render_json(messages)
-
+  
   @handlers.login_required
   @handlers.find_room_and_authorize
   def post(self, room):
     """Creates a new message."""
     form = forms.MessageForm(data=self.request.POST)
     if form.is_valid():
-      message = form.save(commit=False)
+      message      = form.save(commit=False)
       message.room = room
       message.user = users.get_current_user()
+      message.increment_evil()
       message.put()
       self.render_json(message)
     else:

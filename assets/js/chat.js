@@ -1,10 +1,6 @@
 (function($) {  
   var field = $('#message'), messages = $('#messages'), scroll_to_bottom = true,
-      message_url = '/rooms/' + room_id + '/messages',
-      text_msg_tpl = $.template('<div id="message_${id}" class="message">' + 
-        '<div class="message_user">${user}</div>' +
-        '<div class="message_body">${body}</div>' +
-      '</div>');
+      message_url = '/rooms/' + room_id + '/messages';
   
   function createMessage(body, o) {
     var params = {breed:'text', body:body}
@@ -16,16 +12,18 @@
   }
   
   function addMessageToList(message) {
-    if ($('#message_' + message.id).length == 0) {
-      $.log('adding message to list');
-      messages.append(text_msg_tpl, {
-        id: message.id,
-        body: message.body,
-        user: message.user.nickname
-      });
+    if ($('#message_' + message.evil).length == 0) {
+      l('adding message to list');
+      
+      messages.append('<div id="message_' + message.evil +'" class="message">' + 
+        '<div class="message_user">' + message.user.nickname + '</div>' +
+        '<div class="message_body"></div>' +
+      '</div>');
+      // escapes the html of the message and appends it
+      $('#message_' + message.evil + ' div.message_body').append(document.createTextNode(message.body));      
       field.scrollTo();
     } else {
-      $.log('message already existed');
+      l('message already existed');
     }
   }
   
@@ -34,9 +32,8 @@
     num = json.length;
     if (num > 0) {
       var m = json[num-1];
-      since   = m.created.epoch;
-      last_id = m.id
-      $.log('setting since to ' + since + ' and last id to ' + last_id);
+      evil = m.evil;
+      l('setting evil to: ' + evil);
     }
   }
   
@@ -61,11 +58,11 @@
   field.keypress(onKeyPress).scrollTo().focus();
   
   var times = 0;
-  $.timer(4000, function(timer) {
-    $.get(message_url, {since:since}, addMessagesToList, 'json');
+  $.timer(3000, function(timer) {
+    $.get(message_url, {'evil':evil}, addMessagesToList, 'json');
     
     times += 1;
-    if (times == 10) { timer.stop(); }
+    // if (times == 20) { timer.stop(); }
   });
   
   $(window).bind('resize', function() { 

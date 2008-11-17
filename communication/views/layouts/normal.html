@@ -13,27 +13,15 @@
 	<script src="/assets/js/jquery.growfield.packed.js" type="text/javascript"></script>
 	<script src="/assets/js/application.js" type="text/javascript"></script>
 </head>
-<body>
+<body id="bgeneral">
   <header>
-		<h1>Room Name</h1>
-		<ul>
-			<li><a href="#" id="toggle_users" class="active">Users</a></li>
-			<li><a href="/rooms">Rooms</a></li>
-			<li><a href="{{ logout_url }}">Logout</a></li>
-		</ul>
+		<h1>ChinWag</h1>
 	</header>
-  <section id="onlines" class="active">
-    {% block onlines %}{% endblock %}
+  <section>
+    {% block primary %}{% endblock %}
   </section>
-	<section id="chats">
-		{% block chats %}{% endblock %}
-	</section>
-	
 	<footer>
-		<form action="#" id="chat_form" method="post">
-			<textarea id="message" class="note"></textarea>
-			<input type="submit" value="Send" />
-		</form>
+    my footer
 	</footer>
 </body>
 </html>

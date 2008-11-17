@@ -1,12 +1,7 @@
-(function($) {	
-	$.hotkeys({
-		'h': function() { window.location = '/'; }
-	});
-	
+(function($) {
 	$(document).ready(function() {
 		$('input[type=text]').addClass('text');
 		$('input[type=submit]').addClass('submit');
-		$('textarea.expanding').growfield({animate:false});
 	});
 	
 	function parseId(el) {
@@ -15,11 +10,6 @@
 		return id;
 	}
 })(jQuery);
-
-jQuery.fn.scrollTo = function() {
-  window.scrollTo(0, $(this).offset().top);
-  return this;
-}
 
 jQuery.fn.disable = function() {
   return this.each(function() {
@@ -72,4 +62,47 @@ Querystring.prototype.get = function(key, default_) {
 Querystring.prototype.contains = function(key) {
 	var value = this.params[key];
 	return (value != null);
+}
+
+$(document).ready(function() {
+	fixChats();
+	
+	$('#toggle_users').click(function() {
+		$('#onlines').toggleClass('active');
+		$('#toggle_users').toggleClass('active');
+		fixChats();
+		return false;
+	});
+	
+	$("#onlines").click(function(e) {
+	  highlightChats($(e.target));
+	  return false;
+	});
+	
+	highlightChats($("#onlines a:first"));
+	scrollToBottom();
+});
+
+function scrollToBottom() {
+  $('#chats').attr({scrollTop: $('#chats').attr('scrollHeight')});
+}
+
+function fixChats() {
+	var c = $('#chats');
+	var o = $('#onlines')
+	var t = 31;
+	if (o.hasClass('active')) t = t + o.height() + 11;
+	c.css({top:t+'px'});
+}
+
+function highlightChats(el) {
+  if (el) {
+    $('#onlines a, #chats tr').removeClass('active');
+  	t = $(el).addClass('active');
+  } else {
+  	t = $("#onlines a.active");
+  }
+	
+	$('#chats tr[data-person="' + t.attr('data-person') + '"]').addClass('active');
+	return false;
 }

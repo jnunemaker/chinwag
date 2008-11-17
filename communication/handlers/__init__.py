@@ -3,6 +3,7 @@
 import os
 import json
 from functools import update_wrapper
+from datetime import datetime, timedelta
 
 from google.appengine.api import users
 from google.appengine.ext import webapp
@@ -10,6 +11,12 @@ from google.appengine.ext.webapp import template
 from communication import models
 
 _DEBUG = True
+
+def online_users(room):
+  """returns a list of all the online users"""
+  threshold = datetime.now() - timedelta(seconds=15)
+  authorizations = models.Authorization.gql("WHERE room = :room AND last_checked_in >= :threshold", room=room, threshold=threshold).fetch(1000)
+  return [x.user for x in authorizations]
 
 def login_required(f):
   def _f(self, *a, **kw):
@@ -38,7 +45,7 @@ class ApplicationHandler(webapp.RequestHandler):
       'current_user'      : users.get_current_user(),
       'login_url'         : users.create_login_url(self.request.uri),
       'logout_url'        : users.create_logout_url(self.request.uri),
-      'application_name'  : 'Communication',
+      'application_name'  : 'ChinWag',
     }
     values.update(template_values)
     path = os.path.join(os.path.dirname(__file__), '..', 'views', template_path)

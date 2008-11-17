@@ -1,53 +1,55 @@
 {% extends "../layouts/application.html" %}
-{% block primary %}
+{% block chats %}
 	<script type="text/javascript" charset="utf-8">
 		var evil = 0;
 	</script>
-	<div id="messages">
-		{% for message in messages %}
-			<div id="message_{{ message.evil }}" class="message">
-				<div class="message_user">
-					{{ message.user.nickname|escape }}
-				</div>
-				<div class="message_body">
-					{{ message.body|escape }}
-				</div>
-			</div>
+	
+	<table id="chat_table">
+	  {% for message in messages %}
+	    <tr data-person="{{ message.user.nickname|escape }}" id="message_{{ message.evil }}">
+	     <td class="person">{{ message.user.nickname|escape }}</td>
+	     <td>{{ message.body|escape }}</td>
+	    </tr>
+			
 			{% if forloop.last %}
 				<script type="text/javascript" charset="utf-8">
 					evil = {{ message.evil }};
 				</script>
 			{% endif %}
 		{% endfor %}
-	</div>
-	<form id="chat_form">
-		<ul>
-			<li>
-				<textarea id="message"></textarea>
-			</li>
-		</ul>
-	</form>
+	</table>
 	
 	<script type="text/javascript" charset="utf-8">
 		var room_id = {{ room.key.id }};
 	</script>
 	<script type="text/javascript" src="/assets/js/chat.js"></script>
-{% endblock primary %}
+{% endblock chats %}
 
-{% block secondary %}
-	<form action="{% url AuthorizationCollectionHandler %}" id="add_user">
-		<ul>
-			<li>
-				<input type="text" name="email" id="email" />
-			</li>
-			<li class="submit">
-				<input type="submit" value="Invite GMail User" id="invite_button" />
-			</li>
-		</ul>
-		<p id="user_add_message"></p>
-	</form>
-	
-	<div id="online_users"></div>
-	
-	<script type="text/javascript" src="/assets/js/user.js"></script>
-{% endblock secondary %}
+{% block onlines %}
+  <ul>
+    {% for user in onlines %}
+      <li>
+        <a href="#" data-person="{{ user.nickname|escape }}">
+          {{ user.nickname|escape }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock onlines %}
+
+
+<!-- <form action="{% url AuthorizationCollectionHandler %}" id="add_user">
+   <ul>
+     <li>
+       <input type="text" name="email" id="email" />
+     </li>
+     <li class="submit">
+       <input type="submit" value="Invite GMail User" id="invite_button" />
+     </li>
+   </ul>
+   <p id="user_add_message"></p>
+ </form>
+ 
+ <div id="online_users"></div>
+ 
+ <script type="text/javascript" src="/assets/js/user.js"></script> -->

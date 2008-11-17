@@ -10,6 +10,12 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+# Used 456 times in query history.
+- kind: Authorization
+  properties:
+  - name: room
+  - name: last_checked_in
+
 # Unused in query history -- copied from input.
 - kind: Message
   properties:
@@ -22,13 +28,13 @@ indexes:
   - name: room
   - name: created
 
-# Used 2 times in query history.
+# Used 2159 times in query history.
 - kind: Message
   properties:
   - name: room
   - name: evil
 
-# Used once in query history.
+# Used 17 times in query history.
 - kind: Message
   properties:
   - name: room

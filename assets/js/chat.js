@@ -5,8 +5,8 @@
   function createMessage(body, o) {
     var params = {breed:'text', body:body, evil:evil}
     $.extend(params, o || {})
-    $.post(message_url, params, function(messages) {
-      addMessagesToList(messages);
+    $.post(message_url, params, function(json) {
+      receivePing(json);
       field.val('').focus().scrollTo();
     }, 'json');
   }
@@ -25,11 +25,25 @@
     }
   }
   
-  function addMessagesToList(json) {
-    $.map(json, function(m) { addMessageToList(m); });
-    num = json.length;
+  function updateUsersOnline(users) {
+    // nickname email
+    html = '<ul>';
+    $.map(users, function(u) {
+      html += '<li>' + u.nickname + '</li>';
+    });
+    html += '</ul>';
+    $("#online_users").html(html);
+  }
+  
+  function receivePing(json) {
+    var messages = json['messages'],
+        users = json['users'];
+        
+    $.map(messages, function(m) { addMessageToList(m); });
+    updateUsersOnline(users);
+    num = messages.length;
     if (num > 0) {
-      var m = json[num-1];
+      var m = messages[num-1];
       evil = m.evil;
       l('setting evil to: ' + evil);
     }
@@ -57,7 +71,7 @@
   
   var times = 0;
   $.timer(3000, function(timer) {
-    $.get(message_url, {'evil':evil}, addMessagesToList, 'json');
+    $.get(message_url, {'evil':evil}, receivePing, 'json');
     
     times += 1;
     // if (times == 20) { timer.stop(); }

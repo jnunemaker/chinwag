@@ -32,8 +32,11 @@
       // nickname email
       var person = $('#onlines a.active').attr('data-person');
       html = '<ul>';
+      html += '<li><a href="#" data-person="' + current_user + '">' + current_user + '</a></li>'
       $.map(users, function(u) {
-        html += '<li><a href="#" data-person="' + u.nickname + '">' + u.nickname + '</a></li>';
+        if (u.nickname != current_user) {
+          html += '<li><a href="#" data-person="' + u.nickname + '">' + u.nickname + '</a></li>';
+        }
       });
       html += '</ul>';
       $("#onlines").html(html);

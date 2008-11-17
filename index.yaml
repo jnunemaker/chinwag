@@ -10,7 +10,7 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 894 times in query history.
+# Used 914 times in query history.
 - kind: Authorization
   properties:
   - name: room
@@ -28,7 +28,7 @@ indexes:
   - name: room
   - name: created
 
-# Used 2568 times in query history.
+# Used 2586 times in query history.
 - kind: Message
   properties:
   - name: room

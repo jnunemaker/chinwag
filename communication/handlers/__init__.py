@@ -14,7 +14,7 @@ _DEBUG = True
 
 def online_users(room):
   """returns a list of all the online users"""
-  threshold = datetime.now() - timedelta(seconds=15)
+  threshold = datetime.now() - timedelta(seconds=10)
   authorizations = models.Authorization.gql("WHERE room = :room AND last_checked_in >= :threshold", room=room, threshold=threshold).fetch(1000)
   return [x.user for x in authorizations]
 

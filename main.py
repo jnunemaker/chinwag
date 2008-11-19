@@ -16,8 +16,8 @@
 #
 
 import wsgiref.handlers
-from communication import handlers
-from communication.handlers import messages, rooms, authorizations
+from chinwag import handlers
+from chinwag.handlers import messages, rooms, authorizations
 from google.appengine.ext import webapp
 
 def main():

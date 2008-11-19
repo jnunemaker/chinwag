@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from communication import models
+from chinwag import models
 
 _DEBUG = True
 

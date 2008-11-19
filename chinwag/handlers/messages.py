@@ -4,7 +4,7 @@ from functools import update_wrapper
 from google.appengine.api import users
 from google.appengine.ext import webapp,db
 from google.appengine.ext.webapp import template
-from communication import handlers, models, forms
+from chinwag import handlers, models, forms
 import logging
 
 class MessageCollectionHandler(handlers.ApplicationHandler):

@@ -1,7 +1,8 @@
 (function($) {
   $(document).ready(function() {
-    var field = $('#message'), messages = $('#chats'), scroll_to_bottom = true,
-        message_url = '/rooms/' + room_id + '/messages';
+    var field            = $('#message'),
+        message_url      = '/rooms/' + room_id + '/messages',
+        ping_url         = '/ping/' + room_id;
 
     function createMessage(body, o) {
       var params = {breed:'text', body:body, evil:evil}
@@ -81,10 +82,10 @@
 
     var times = 0;
     $.timer(3000, function(timer) {
-      $.get(message_url, {'evil':evil}, receivePing, 'json');
+      $.get(ping_url, {'evil':evil}, receivePing, 'json');
 
       times += 1;
-      // if (times == 20) { timer.stop(); }
+      // if (times == 10) { timer.stop(); }
     });
 
     $(window).bind('resize', function() {

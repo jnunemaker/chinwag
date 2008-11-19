@@ -6,16 +6,6 @@ from google.appengine.ext import webapp,db
 from google.appengine.ext.webapp import template
 from chinwag import handlers, models, forms
 
-def find_room(f):
-  """Used to find a room by id. Once found passes it as room rather than id."""
-  def _f(self, id):
-    room = models.Room.get_by_id(int(id))
-    if room:
-      f(self, room)
-    else:
-      self.error(404)
-  return update_wrapper(_f, f)
-
 class RoomCollectionHandler(handlers.ApplicationHandler):
   @handlers.login_required
   def get(self):
@@ -41,14 +31,14 @@ class RoomCollectionHandler(handlers.ApplicationHandler):
 
 class RoomHandler(handlers.ApplicationHandler):
   @handlers.login_required
-  @find_room
+  @handlers.find_room_and_authorize
   def get(self, room):
     """Shows an individual room."""
     onlines = handlers.online_users(room)
     self.render_template('rooms/show.html', {'room':room, 'messages':room.messages, 'authorizations':room.authorizations, 'onlines':onlines})
   
   @handlers.login_required
-  @find_room
+  @handlers.find_room_and_authorize
   def post(self, room):
     """Updates an individual room."""
     form = forms.RoomForm(data=self.request.params, instance=room)
@@ -60,7 +50,7 @@ class RoomHandler(handlers.ApplicationHandler):
 
 class EditRoomHandler(handlers.ApplicationHandler):
   @handlers.login_required
-  @find_room
+  @handlers.find_room_and_authorize
   def get(self, room):
     """Edit form for an individual room."""
     form = forms.RoomForm(instance=room)

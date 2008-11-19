@@ -1,0 +1,6 @@
+* show authorize user form when in room (modal maybe?)
+* style up rooms and login pages
+* fix textarea in firefox
+* enter and exit messages
+* chat transformations (autolink, etc.)
+* add activity indicator to the post message form (maybe change send button to spinner)
